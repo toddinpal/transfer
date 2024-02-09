@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: account
+  labels:
+    app: account
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: account
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: account
+        version: v1
+    spec:
+      volumes:
+        - name: tns-admin
+          secret:
+            secretName: "tns-admin"
+      containers:
+        - name: account
+          image: account:0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+          env:
+            - name: spring.jersey.type
+              value: filter
+
+            - name: spring.datasource.username
+              valueFrom:
+                secretKeyRef:
+                  name: account-db-secrets
+                  key: db.username
+            - name: spring.datasource.password
+              valueFrom:
+                secretKeyRef:
+                  name: account-db-secrets
+                  key: db.password
+            - name: DB_SERVICE
+              valueFrom:
+                secretKeyRef:
+                  name: account-db-secrets
+                  key: db.service
+            - name: spring.datasource.url
+              value: jdbc:oracle:thin:@localhost:1521/freepdb1
+            - name: CONNECT_STRING
+              value: jdbc:oracle:thin:@localhost:1521/freepdb1
+      imagePullSecrets:
+        - name: registry-auth
+

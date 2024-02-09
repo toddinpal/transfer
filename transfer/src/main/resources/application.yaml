@@ -1,0 +1,17 @@
+server:
+  port: 8081
+#account:
+#  deposit:
+#    url: http://localhost:8080/deposit/deposit
+#  withdraw:
+#    url: http://localhost:8080/withdraw/withdraw
+account.deposit.url: http://localhost:8080/deposit/deposit
+account.withdraw.url: http://localhost:8080/withdraw/withdraw
+transfer:
+  transfer:
+    url: http://localhost:8081/transfer
+#Logging:
+#  level:
+#    root: DEBUG
+#    org.springframework.web: DEBUG
+#    org.springframework: DEBUG

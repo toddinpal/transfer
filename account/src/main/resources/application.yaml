@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: account
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.Oracle12cDialect
+        format_sql: true
+    show-sql: false
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521/freepdb1
+    username: cloudbank
+    password: Welcome1
+    driver-class-name: oracle.jdbc.OracleDriver
+    type: oracle.ucp.jdbc.PoolDataSource
+    oracleucp:
+      connection-factory-class-name: oracle.jdbc.pool.OracleDataSource
+      connection-pool-name: TransactionConnectionPool
+      initial-pool-size: 15
+      min-pool-size: 10
+      max-pool-size: 30
